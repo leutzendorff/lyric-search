@@ -5,7 +5,7 @@ document.getElementById('searchForm').addEventListener('submit', function(e) {
     let apiKey = 'c386b28656b34620b5d2c7adc725bd7a';
 
     // Wir fügen 'https://thingproxy.freeboard.io/fetch/' vor die URL, um das CORS-Problem zu umgehen.
-    fetch('https://thingproxy.freeboard.io/fetch/https://api.musixmatch.com/ws/1.1/track.search?q_lyrics=' + lyrics + '&apikey=' + apiKey)
+    fetch('https://cors.bridged.cc/https://api.musixmatch.com/ws/1.1/track.search?q_lyrics=' + lyrics + '&apikey=' + apiKey)
         .then(response => response.json())
         .then(data => {
             console.log(data);
