@@ -1,18 +1,53 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lyric Search</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <title>Lyrics Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        form {
+            display: flex;
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        div#messages {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 50px;
+            height: 200px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <form id="form">
-        <input type="text" id="search">
-        <button type="submit">Suche</button>
-    </form>
-    <div id="result"></div>
+    <div class="container">
+        <form id="form1">
+            <input type="text" id="lyrics-search-input" placeholder="Enter penis...">
+            <input type="button" value="Search" onclick="onGet('v1')">
+        </form>
+        <div id="messages">
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
-</html>
