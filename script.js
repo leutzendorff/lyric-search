@@ -1,16 +1,30 @@
-document.getElementById('search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var lyrics = document.getElementById('search-input').value;
-    fetch('https://api.musixmatch.com/ws/1.1/track.search?q_lyrics=' + lyrics + '&apikey=c386b28656b34620b5d2c7adc725bd7a')
+document.getElementById('searchForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // verhindert das automatische Absenden des Formulars
+
+    let lyrics = document.getElementById('lyrics').value;
+    let apiKey = 'c386b28656b34620b5d2c7adc725bd7a';
+
+    // Wir fügen 'https://cors-anywhere.herokuapp.com/' vor die URL, um das CORS-Problem zu umgehen.
+    fetch('https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q_lyrics=' + lyrics + '&apikey=' + apiKey)
         .then(response => response.json())
         .then(data => {
-            var results = document.getElementById('results');
-            results.innerHTML = '';
-            for (var i = 0; i < data.message.body.track_list.length; i++) {
-                var track = data.message.body.track_list[i].track;
-                var resultItem = document.createElement('p');
-                resultItem.textContent = track.artist_name + ' - ' + track.track_name;
-                results.appendChild(resultItem);
+            console.log(data);
+            let output = '<h2>Suchergebnisse</h2>';
+
+            // Überprüfen Sie, ob Daten vorhanden sind
+            if(data.message.body.track_list.length === 0) {
+                output += '<p>Keine Übereinstimmungen gefunden</p>';
+            } else {
+                data.message.body.track_list.forEach(function(track) {
+                    output += `
+                        <h3>${track.track.track_name} by ${track.track.artist_name}</h3>
+                        <p>${track.track.album_name}</p>
+                        <p><a href="${track.track.track_share_url}">Song Link</a></p>
+                    `;
+                });
             }
-        });
+
+            document.getElementById('results').innerHTML = output;
+        })
+        .catch(err => console.log(err));
 });
