@@ -4,8 +4,8 @@ document.getElementById('searchForm').addEventListener('submit', function(e) {
     let lyrics = document.getElementById('lyrics').value;
     let apiKey = 'c386b28656b34620b5d2c7adc725bd7a';
 
-    // Wir fügen 'https://cors-anywhere.herokuapp.com/' vor die URL, um das CORS-Problem zu umgehen.
-    fetch('https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q_lyrics=' + lyrics + '&apikey=' + apiKey)
+    // Wir fügen 'https://thingproxy.freeboard.io/fetch/' vor die URL, um das CORS-Problem zu umgehen.
+    fetch('https://thingproxy.freeboard.io/fetch/https://api.musixmatch.com/ws/1.1/track.search?q_lyrics=' + lyrics + '&apikey=' + apiKey)
         .then(response => response.json())
         .then(data => {
             console.log(data);
