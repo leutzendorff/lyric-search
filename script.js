@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     function onGet(version) {
-        const url = "https://api.lyrics.ovh/v1/Coldplay/Adventure of a Lifetime";
+        const url = "https://api.lyrics.ovh/v1/Coldplay/The Scientist";
         var headers = {}
 
         fetch(url, {
