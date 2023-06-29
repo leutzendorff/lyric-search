@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lyric Search</title>
+    <!-- Ihr CSS hier -->
+</head>
+<body>
+    <h1>Lyric Search</h1>
+    <input type="text" id="searchInput" placeholder="Enter lyrics">
+    <button id="searchButton">Search</button>
+    <div id="results"></div>
+
+    <script>
+        document.getElementById('searchButton').addEventListener('click', function() {
+            var lyrics = document.getElementById('searchInput').value;
+
+            fetch('https://api.musixmatch.com/ws/1.1/track.search?q_lyrics=' + lyrics + '&apikey=c386b28656b34620b5d2c7adc725bd7a')
+                .then(response => response.json())
+                .then(data => {
+                    var results = document.getElementById('results');
+                    results.innerHTML = '';
+
+                    data.message.body.track_list.forEach(function(track) {
+                        var div = document.createElement('div');
+                        div.textContent = track.track.artist_name + ' - ' + track.track.track_name;
+                        results.appendChild(div);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>
