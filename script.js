@@ -1,36 +1,31 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var form = document.getElementById('form1');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var lyrics = document.getElementById('lyrics').value;
-        var version = "1.1";
-        onGet(version, lyrics);
-    });
-});
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById('form1');
 
-function onGet(version, lyrics) {
-    var url = "https://api.musixmatch.com/ws/" + version + "/track.search?q_lyrics=" + encodeURIComponent(lyrics) + "&apikey=c386b28656b34620b5d2c7adc725bd7a";
-    var headers = {
-        'Origin': 'http://localhost:8080'
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // get the value from the input field
+            const lyrics = document.getElementById('lyrics').value;
+
+            // define the url for the api call
+            const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.musixmatch.com/ws/1.1/track.search?q_lyrics=${lyrics}&apikey=c386b28656b34620b5d2c7adc725bd7a`)}`;
+
+            fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.json();
+            })
+            .then(json => {
+                console.log(json);
+            })
+            .catch(function() {
+                console.log("An error occurred while fetching the API data.");
+            });
+        });
+    } else {
+        console.log('Form element not found.');
     }
-
-    fetch(url, {
-        method: "GET",
-        mode: 'cors',
-        headers: headers
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        var output = document.getElementById('output');
-        output.innerText = JSON.stringify(data, null, 2);
-    })
-    .catch(function(error) {
-        var output = document.getElementById('output');
-        output.innerText = "Fehler: " + error.message;
-    });
-}
+});
