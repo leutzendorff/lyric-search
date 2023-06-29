@@ -1,15 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Musixmatch Lyrics Search</title>
-    <script src="script.js"></script> <!-- Substitute with the path to your JavaScript file -->
+    <title>Lyrics Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        form {
+            display: flex;
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 50px;
+        }
+        li {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Musixmatch Lyrics Search</h1>
-    <form id="form1">
-        <label for="lyrics">Enter lyrics:</label><br>
-        <input type="text" id="lyrics" name="lyrics"><br>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="container">
+        <form id="lyrics-search-form">
+            <input type="text" id="lyrics-search-input" placeholder="Enter penis...">
+            <input type="submit" value="Search">
+        </form>
+        <ul id="results">
+        </ul>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
