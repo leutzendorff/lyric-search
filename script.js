@@ -1,14 +1,21 @@
-function onGet(version) {
-    // Stellen Sie sicher, dass das Protokoll, der Host und der Port korrekt sind.
-    const url = "http://localhost:8000/api/" + version + "/messages";
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('form1');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var lyrics = document.getElementById('lyrics').value;
+        var version = "1.1";
+        onGet(version, lyrics);
+    });
+});
+
+function onGet(version, lyrics) {
+    var url = "https://api.musixmatch.com/ws/" + version + "/track.search?q_lyrics=" + encodeURIComponent(lyrics) + "&apikey=c386b28656b34620b5d2c7adc725bd7a";
     var headers = {
-        // Die 'Origin'-Kopfzeile zeigt an, von welcher Domain die Anfrage stammt.
         'Origin': 'http://localhost:8080'
     }
 
     fetch(url, {
         method: "GET",
-        // Der Modus 'cors' gibt an, dass der Browser eine CORS-Anfrage senden soll.
         mode: 'cors',
         headers: headers
     })
@@ -19,9 +26,11 @@ function onGet(version) {
         return response.json();
     })
     .then(data => {
-        document.getElementById('messages').value = data.messages;
+        var output = document.getElementById('output');
+        output.innerText = JSON.stringify(data, null, 2);
     })
     .catch(function(error) {
-        document.getElementById('messages').value = error.message;
+        var output = document.getElementById('output');
+        output.innerText = "Fehler: " + error.message;
     });
 }
