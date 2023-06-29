@@ -1,17 +1,27 @@
-document.getElementById('lyricForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const input = document.querySelector('input');
+    const results = document.querySelector('.results');
 
-    let lyrics = document.getElementById('lyrics').value;
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
+    const api = `${proxy}https://api.deezer.com/search/`;
 
-    let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-        targetUrl = `https://api.musixmatch.com/ws/1.1/track.search?q_lyrics=${lyrics}&apikey=c386b28656b34620b5d2c7adc725bd7a`
-    fetch(proxyUrl + targetUrl)
-        .then(blob => blob.json())
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const userSearch = input.value;
+        fetch(`${api}?q=${userSearch}`)
+        .then(response => response.json())
         .then(data => {
-            console.log(data);
+            let output = '';
+            data.data.forEach(item => {
+                output += `
+                    <li>
+                        <h3>${item.artist.name}</h3>
+                        <p>${item.title}</p>
+                    </li>
+                `;
+            });
+            results.innerHTML = output;
         })
-        .catch(e => {
-            console.log(e);
-            return e;
-        });
+    });
 });
